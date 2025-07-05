@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import java.net.URI
+import javax.security.auth.callback.ConfirmationCallback.OK
 
 @RestController
 class LoginController {
@@ -25,11 +26,12 @@ class LoginController {
     @GetMapping("/login")
     fun login(): ResponseEntity<Void> {
         val redirect = URI("/oauth2/authorization/discord")
-        return ResponseEntity.status(302).location(redirect).build()
+        return ResponseEntity.status(OK).location(redirect).build()
     }
 
     @GetMapping("/logout")
-    fun logout(): String {
-        return "redirect:/logout"
+    fun logout(): ResponseEntity<Void> {
+        val redirect = URI("redirect:/logout")
+        return ResponseEntity.status(OK).location(redirect).build();
     }
 }

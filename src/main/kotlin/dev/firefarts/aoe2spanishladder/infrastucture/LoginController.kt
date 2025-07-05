@@ -1,15 +1,17 @@
 package dev.firefarts.aoe2spanishladder.infrastucture
 
+import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+import java.net.URI
 
 @RestController
 class LoginController {
 
-    @GetMapping("/login")
-    fun home(@AuthenticationPrincipal oauth2User: OAuth2User): String {
+    @GetMapping("/me")
+    fun me(@AuthenticationPrincipal oauth2User: OAuth2User): String {
         val userName = oauth2User.getAttribute<String>("username")
         val email = oauth2User.getAttribute<String>("email")
         val id = oauth2User.getAttribute<String>("id")
@@ -20,5 +22,14 @@ class LoginController {
         return "Hola $userName ($email)<br><img src=\"$avatarUrl\" width=\"100\"/>"
     }
 
+    @GetMapping("/login")
+    fun login(): ResponseEntity<Void> {
+        val redirect = URI("/oauth2/authorization/discord")
+        return ResponseEntity.status(302).location(redirect).build()
+    }
 
+    @GetMapping("/logout")
+    fun logout(): String {
+        return "redirect:/logout"
+    }
 }

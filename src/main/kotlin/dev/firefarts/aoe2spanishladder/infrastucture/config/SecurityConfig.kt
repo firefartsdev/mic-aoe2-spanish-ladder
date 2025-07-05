@@ -12,8 +12,16 @@ class SecurityConfig {
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.authorizeHttpRequests {
             it.anyRequest().authenticated()
+
         }
-            .oauth2Login{ }
+        .oauth2Login{
+            it.defaultSuccessUrl("/me")
+        }
+        .logout {
+            it.logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+        }
         return http.build()
     }
 }

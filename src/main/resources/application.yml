@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: mic-aoe2-spanish-ladder
+  security:
+    oauth2:
+      client:
+        registration:
+          discord:
+            client-id: 1386347318533427401
+            client-secret: vr-DFaICZ343bN6aqDHVJwpajXmN7oxm
+            redirect-uri: "{baseUrl}/login/oauth2/code/discord"
+            authorization-grant-type: authorization_code
+            scope:
+              - identify
+              - email
+        provider:
+          discord:
+            authorization-uri: https://discord.com/oauth2/authorize
+            token-uri: https://discord.com/api/oauth2/token
+            user-info-uri: https://discord.com/api/users/@me
+            user-name-attribute: id

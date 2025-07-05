@@ -32,6 +32,6 @@ class LoginController {
     @GetMapping("/logout")
     fun logout(): ResponseEntity<Void> {
         val redirect = URI("redirect:/logout")
-        return ResponseEntity.status(OK).location(redirect).build();
+        return ResponseEntity.status(OK).location(redirect).build()
     }
 }
